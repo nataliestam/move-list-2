@@ -1,12 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import 'bootstrap';
+import MovieList from './MovieList.jsx'
+import Search from './Search.jsx'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      movies: []
+    }
+  }
 
   render() {
     return (
-      <div>
-        <h1>hellohello</h1>
+      <div className="container">
+        <Search />
+        <MovieList />
       </div>
     )
   }
