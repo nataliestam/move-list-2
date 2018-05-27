@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: []
+      movies: [],
+      searchedMovies: []
     }
 
     this.searchMovies = this.searchMovies.bind(this);
@@ -18,8 +19,13 @@ class App extends React.Component {
     this.getMovies();
   }
 
-  searchMovies(movie) {
-    console.log(movie)
+  searchMovies(searchMovie) {
+    let search = searchMovie.toLowerCase();
+    this.setState({
+      searchedMovies: this.state.movies.filter(movie => 
+        movie.title.toLowerCase().includes(search)
+      )
+    })
   }
 
   getMovies() {
@@ -28,7 +34,7 @@ class App extends React.Component {
       type: 'GET'
     })
     .done((data) => {
-      this.setState({movies: data});
+      this.setState({movies: data, searchedMovies: data});
     });
   }
 
@@ -36,7 +42,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <Search onSubmit={this.searchMovies}/>
-        <MovieList movies={this.state.movies} />
+        <MovieList movies={this.state.searchedMovies} />
       </div>
     )
   }
