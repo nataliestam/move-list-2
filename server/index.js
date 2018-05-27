@@ -11,4 +11,8 @@ let movies = [
 
 app.use(express.static('./client/dist'));
 
+app.get('/movies', (req, res) => {
+  res.send(movies);
+});
+
 app.listen(3000, () => console.log('listening on port 3000!'));
