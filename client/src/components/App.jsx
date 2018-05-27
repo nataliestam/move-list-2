@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      searchedMovies: []
+      searchedMovies: [],
+      searchMessage: ''
     }
 
     this.searchMovies = this.searchMovies.bind(this);
@@ -25,7 +26,13 @@ class App extends React.Component {
       searchedMovies: this.state.movies.filter(movie => 
         movie.title.toLowerCase().includes(search)
       )
-    })
+    }, () => {
+      if (this.state.searchedMovies.length === 0) {
+        this.setState({searchMessage: 'no movies found :('})
+      } else {
+        this.setState({searchMessage: ''});
+      }
+    });
   }
 
   getMovies() {
@@ -42,6 +49,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <Search onSubmit={this.searchMovies}/>
+        {this.state.searchMessage}
         <MovieList movies={this.state.searchedMovies} />
       </div>
     )
